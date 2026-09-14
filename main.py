@@ -1,9 +1,9 @@
 import os, telebot, json, threading
 from flask import Flask
 
-CHANNEL_USERNAME = "@LootLeBhaiOfficial"
-CHANNEL_LINK = "https://t.me/LootLeBhaiOfficial"
-YOUTUBE_LINK = "https://youtube.com/@LootLeBhaiOfficial"
+CHANNEL_USERNAME = "@thelootlebhai"
+CHANNEL_LINK = "https://t.me/thelootlebhai"
+YOUTUBE_LINK = "https://www.youtube.com/@LootLeBhai"
 
 app = Flask('')
 @app.route('/')
@@ -38,7 +38,7 @@ def start(m):
         telebot.types.InlineKeyboardButton("▶️ Youtube Subscribe - 5₹", url=YOUTUBE_LINK),
         telebot.types.InlineKeyboardButton("💰 My Balance", callback_data="balance")
     )
-    bot.send_message(m.chat.id, f"Loot Le Bhai me Swagat Hai! 🔥\n\nHar Task pe 5₹ Kamao!\n📢 Telegram Join - 5₹\n▶️ Youtube Subscribe - 5₹\n\nJoin karke Check dabao, turant 5₹ milega!\n💰 Balance dekhne ke liye niche button dabao", reply_markup=markup)
+    bot.send_message(m.chat.id, f"Loot Le Bhai me Swagat Hai! 🔥\n\nHar Task pe 5₹ Kamao!\n📢 Telegram Join - 5₹\n▶️ Youtube Subscribe - 5₹\n\nJoin karke Check dabao, turant 5₹ milega!", reply_markup=markup)
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback(call):
@@ -57,16 +57,16 @@ def callback(call):
                     db[s_uid]["tasks"].append("telegram")
                     save_db(db)
                     bot.answer_callback_query(call.id, "✅ 5₹ Added!")
-                    bot.send_message(call.message.chat.id, f"✅ Verified! 5₹ balance me add ho gaye!\n💰 Total: {db[s_uid]['balance']}₹")
+                    bot.send_message(call.message.chat.id, f"✅ Verified! 5₹ add ho gaye!\n💰 Total Balance: {db[s_uid]['balance']}₹")
                 else:
-                    bot.send_message(call.message.chat.id, "Paisa pehle hi mil chuka hai!")
+                    bot.send_message(call.message.chat.id, "Is task ka paisa mil chuka hai!")
             else:
                 bot.send_message(call.message.chat.id, f"❌ Pehle channel join karo! {CHANNEL_LINK}")
         except:
-            bot.send_message(call.message.chat.id, f"❌ Mujhe {CHANNEL_USERNAME} me Admin banao!")
+            bot.send_message(call.message.chat.id, f"❌ Bot ko {CHANNEL_USERNAME} me Admin banao!")
     
     elif call.data == "balance":
-        bot.send_message(call.message.chat.id, f"💰 Balance: {db[s_uid]['balance']}₹")
+        bot.send_message(call.message.chat.id, f"💰 Aapka Balance: {db[s_uid]['balance']}₹")
 
 @bot.message_handler(commands=['balance'])
 def bal(m):
